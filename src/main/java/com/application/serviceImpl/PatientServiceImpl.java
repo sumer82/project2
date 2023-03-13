@@ -29,7 +29,7 @@ public class PatientServiceImpl implements PatientService {
     }
     
     @Override
-    public Patient getPatientById(Long id) {
+    public Patient getPatientById(int id) {
         return patientRepository.findById(id).orElse(null);
     }
     
@@ -39,12 +39,12 @@ public class PatientServiceImpl implements PatientService {
     }
     
     @Override
-    public void deletePatientById(Long id) {
+    public void deletePatientById(int id) {
         patientRepository.deleteById(id);
     }
     
     @Override
-    public List<Appointment> getAppointmentsByPatientId(Long patientId) {
+    public List<Appointment> getAppointmentsByPatientId(int patientId) {
         return patientRepository.findById(patientId).orElse(null).getAppointments();
     }
     
@@ -54,12 +54,12 @@ public class PatientServiceImpl implements PatientService {
     }
     
     @Override
-    public List<Prescription> getPrescriptionsByPatientId(Long patientId) {
+    public List<Prescription> getPrescriptionsByPatientId(int patientId) {
         return prescriptionRepository.findByPatientId(patientId);
     }
 
 	@Override
-	public Patient updatePatient(Long patientId, Patient patientDetails) {
+	public Patient updatePatient(int patientId, Patient patientDetails) {
 		// TODO Auto-generated method stub
 		return null;
 	}

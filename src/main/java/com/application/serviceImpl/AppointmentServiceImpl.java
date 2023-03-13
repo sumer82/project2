@@ -9,8 +9,13 @@ import org.springframework.stereotype.Service;
 import com.application.exception.AppointmentAlreadyBookedException;
 import com.application.exception.ResourceNotFoundException;
 import com.application.model.Appointment;
+import com.application.model.Doctor;
+import com.application.model.Patient;
 import com.application.repository.AppointmentRepository;
+import com.application.repository.DoctorRepository;
+import com.application.repository.PatientRepository;
 import com.application.service.AppointmentService;
+
 
 import jakarta.transaction.Transactional;
 
@@ -20,11 +25,20 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Autowired
     private AppointmentRepository appointmentRepository;
 
+    @Autowired
+    private DoctorRepository doctorRepository;
     
+    @Autowired
+    private PatientRepository patientRepository;
     
 
     @Override
-    public Appointment createAppointment(Appointment appointment) {
+    public Appointment createAppointment(int p_id,int d_id,Appointment appointment) {
+    	 Doctor doctor = doctorRepository.findById(d_id).orElse(null);
+    	 Patient patient = patientRepository.findById(p_id).orElse(null);
+    	 
+    	 appointment.setDoctor(doctor);
+    	 appointment.setPatient(patient);
     	 List<Appointment> appointments = appointmentRepository.findByDoctorIdAndDateAndTime(
     	            appointment.getDoctor().getId(), appointment.getDate(), appointment.getTime());
     	    if (!appointments.isEmpty()) {
@@ -48,12 +62,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getAppointmentsByDoctorId(Long doctorId) {
+    public List<Appointment> getAppointmentsByDoctorId(int doctorId) {
         return appointmentRepository.findByDoctorId(doctorId);
     }
 
     @Override
-    public List<Appointment> getAppointmentsByPatientId(Long patientId) {
+    public List<Appointment> getAppointmentsByPatientId(int patientId) {
         return appointmentRepository.findByPatientId(patientId);
     }
 
@@ -65,12 +79,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getAppointmentsByDoctorIdAndDate(Long doctorId, LocalDate date) {
+    public List<Appointment> getAppointmentsByDoctorIdAndDate(int doctorId, LocalDate date) {
         return appointmentRepository.findByDoctorIdAndDate(doctorId, date);
     }
 
     @Override
-    public List<Appointment> getAppointmentsByDoctorIdAndDateRange(Long doctorId, LocalDate startDate, LocalDate endDate) {
+    public List<Appointment> getAppointmentsByDoctorIdAndDateRange(int doctorId, LocalDate startDate, LocalDate endDate) {
         return appointmentRepository.findByDoctorIdAndDateBetween(doctorId, startDate, endDate);
     }
 

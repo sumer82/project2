@@ -11,8 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.application.exception.ResourceNotFoundException;
+import com.application.model.Doctor;
+import com.application.model.Patient;
 import com.application.model.User;
 import com.application.payload.UserDto;
+import com.application.repository.DoctorRepository;
+import com.application.repository.PatientRepository;
 import com.application.repository.UserRepository;
 import com.application.service.UserService;
 
@@ -23,6 +27,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private PatientRepository pRepo;
+	
+	@Autowired
+	private DoctorRepository dRepo;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -104,12 +114,25 @@ public class UserServiceImpl implements UserService {
 		// encoded the password
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 
-		// roles
-	
-
-		
-
 		User newUser = this.userRepo.save(user);
+		if(newUser.getRole().toString().equals("PATIENT"))
+		{
+			Patient p = new Patient();
+			p.setUser(newUser);
+			pRepo.save(p);
+		}
+		else if(newUser.getRole().toString().equals("DOCTOR"))
+		{
+			Doctor d = new Doctor();
+			d.setUser(newUser);
+			dRepo.save(d);
+		}
+		else
+		{
+			newUser.setRole("ADMIN");
+			userRepo.save(newUser);
+		}
+	
 
 		return this.modelMapper.map(newUser, UserDto.class);
 	}

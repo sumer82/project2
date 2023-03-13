@@ -33,7 +33,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    public static final String[] PUBLIC_URLS = {"/auth/**","/auth/login","/api/users/**", "/v3/api-docs", "/v2/api-docs",
+    public static final String[] PUBLIC_URLS = {"/auth/**",
             "/swagger-resources/**", "/swagger-ui/**", "/webjars/**"
 
     };

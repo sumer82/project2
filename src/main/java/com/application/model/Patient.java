@@ -1,5 +1,6 @@
 package com.application.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -15,63 +16,45 @@ import jakarta.persistence.*;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Patient {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "contact")
-    private String contact;
-    
-    @OneToMany(mappedBy = "patient" , cascade = CascadeType.ALL )
-    @JsonIgnoreProperties("patient")
-    private List<Appointment> appointments;
-
-	public Patient( String name, String contact, List<Appointment> appointments) {
-		super();
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private User user = new User();
 	
-		this.name = name;
-		this.contact = contact;
-		this.appointments = appointments;
-	}
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "patient")
+	List<Appointment> appointments = new ArrayList<>();
 	
 	
-	public Patient(String name, String contact) {
-		super();
-		this.name = name;
-		this.contact = contact;
-	}
-
+	
+	
 
 	public Patient() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Long getId() {
+	public Patient(User user, List<Appointment> appointments) {
+		super();
+		this.user = user;
+		this.appointments = appointments;
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public User getUser() {
+		return user;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getContact() {
-		return contact;
-	}
-
-	public void setContact(String contact) {
-		this.contact = contact;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<Appointment> getAppointments() {
@@ -81,7 +64,12 @@ public class Patient {
 	public void setAppointments(List<Appointment> appointments) {
 		this.appointments = appointments;
 	}
-    
+
+	@Override
+	public String toString() {
+		return "Patient [id=" + id + ", user=" + user + ", appointments=" + appointments + "]";
+	}
+	
 	
     
     

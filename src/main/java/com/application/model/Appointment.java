@@ -15,13 +15,7 @@ import jakarta.persistence.*;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Appointment {
     
-    public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+ 
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +38,8 @@ public class Appointment {
     private LocalTime time;
     @Column(name = "satus")
     private boolean status;
+    
+    private String symptoms;
 
 
 	public Appointment(Doctor doctor, Patient patient, LocalDate date, LocalTime time) {
@@ -58,6 +54,14 @@ public class Appointment {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	   public boolean isStatus() {
+			return status;
+		}
+
+		public void setStatus(boolean status) {
+			this.status = status;
+		}
 
 	public Long getId() {
 		return id;

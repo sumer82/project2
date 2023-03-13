@@ -18,9 +18,9 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    @PostMapping
-    public Appointment addAppointment(@RequestBody Appointment appointment) {
-        return appointmentService.createAppointment(appointment);
+    @PostMapping("/book/{p_id}/{d_id}")
+    public Appointment addAppointment(@PathVariable int p_id, @PathVariable int d_id, @RequestBody Appointment appointment) {
+        return appointmentService.createAppointment(p_id,d_id,appointment);
     }
 
 
@@ -46,22 +46,22 @@ public class AppointmentController {
     }
 
     @GetMapping("/patient/{patientId}")
-    public List<Appointment> getAppointmentsByPatientId(@PathVariable Long patientId) {
+    public List<Appointment> getAppointmentsByPatientId(@PathVariable int patientId) {
         return appointmentService.getAppointmentsByPatientId(patientId);
     }
 
     @GetMapping("/doctor/{doctorId}")
-    public List<Appointment> getAppointmentsByDoctorId(@PathVariable Long doctorId) {
+    public List<Appointment> getAppointmentsByDoctorId(@PathVariable int doctorId) {
         return appointmentService.getAppointmentsByDoctorId(doctorId);
     }
 
     @GetMapping("/doctor/{doctorId}/{date}")
-    public List<Appointment> getAppointmentsByDoctorIdAndDate(@PathVariable Long doctorId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<Appointment> getAppointmentsByDoctorIdAndDate(@PathVariable int doctorId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return appointmentService.getAppointmentsByDoctorIdAndDate(doctorId, date);
     }
 
     @GetMapping("/doctor/{doctorId}/{startDate}/{endDate}")
-    public List<Appointment> getAppointmentsByDoctorIdAndDateRange(@PathVariable Long doctorId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    public List<Appointment> getAppointmentsByDoctorIdAndDateRange(@PathVariable int doctorId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return appointmentService.getAppointmentsByDoctorIdAndDateRange(doctorId, startDate, endDate);
     }
 }

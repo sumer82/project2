@@ -8,9 +8,11 @@ import com.application.model.Schedule;
 
 public interface DoctorService {
     Doctor createDoctor(Doctor doctor);
-    Doctor getDoctorById(Long id);
+    Doctor getDoctorById(int id);
     List<Doctor> getAllDoctors();
-    void deleteDoctorById(Long id);
-    List<Appointment> getAppointmentsByDoctorId(Long doctorId);
+    void deleteDoctorById(int id);
+    List<Appointment> getAppointmentsByDoctorId(int doctorId);
+	Doctor updateDoctor(int id, Doctor doctor);
+	Doctor findDoctorByUserId(int userId);
    
 }

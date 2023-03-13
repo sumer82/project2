@@ -8,12 +8,12 @@ import com.application.model.Prescription;
 
 public interface PatientService {
     Patient createPatient(Patient patient);
-    Patient getPatientById(Long id);
+    Patient getPatientById(int id);
     List<Patient> getAllPatients();
-    void deletePatientById(Long id);
-    List<Appointment> getAppointmentsByPatientId(Long patientId);
+    void deletePatientById(int id);
+    List<Appointment> getAppointmentsByPatientId(int patientId);
     Prescription createPrescription(Prescription prescription);
-    List<Prescription> getPrescriptionsByPatientId(Long patientId);
-	Patient updatePatient(Long patientId, Patient patientDetails);
+    List<Prescription> getPrescriptionsByPatientId(int patientId);
+	Patient updatePatient(int patientId, Patient patientDetails);
 }
 

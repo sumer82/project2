@@ -29,7 +29,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
     
     @Override
-    public Doctor getDoctorById(Long id) {
+    public Doctor getDoctorById(int id) {
         return doctorRepository.findById(id).orElse(null);
     }
     
@@ -39,14 +39,25 @@ public class DoctorServiceImpl implements DoctorService {
     }
     
     @Override
-    public void deleteDoctorById(Long id) {
+    public void deleteDoctorById(int id) {
         doctorRepository.deleteById(id);
     }
     
     @Override
-    public List<Appointment> getAppointmentsByDoctorId(Long doctorId) {
+    public List<Appointment> getAppointmentsByDoctorId(int doctorId) {
         return doctorRepository.findById(doctorId).orElse(null).getAppointments();
     }
+
+	@Override
+	public Doctor updateDoctor(int id, Doctor doctor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Doctor findDoctorByUserId(int userId) {
+		 return doctorRepository.findByUserId(userId);
+	}
     
     
 }

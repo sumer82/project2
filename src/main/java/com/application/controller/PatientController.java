@@ -31,12 +31,12 @@ public class PatientController {
     }
 
     @PutMapping("/{patientId}")
-    public Patient updatePatient(@PathVariable Long patientId, @RequestBody Patient patientDetails) throws ResourceNotFoundException {
+    public Patient updatePatient(@PathVariable int patientId, @RequestBody Patient patientDetails) throws ResourceNotFoundException {
         return patientService.updatePatient(patientId, patientDetails);
     }
 
     @DeleteMapping("/{patientId}")
-    public void deletePatient(@PathVariable Long patientId) throws ResourceNotFoundException {
+    public void deletePatient(@PathVariable int patientId) throws ResourceNotFoundException {
         patientService.deletePatientById(patientId);
     }
 
@@ -46,7 +46,7 @@ public class PatientController {
     }
 
     @GetMapping("/{patientId}")
-    public Patient getPatientById(@PathVariable Long patientId) throws ResourceNotFoundException {
+    public Patient getPatientById(@PathVariable int patientId) throws ResourceNotFoundException {
         return patientService.getPatientById(patientId);
     }
 }
